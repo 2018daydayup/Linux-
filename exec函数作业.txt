@@ -1,0 +1,27 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<fcntl.h>
+void main(int argc,char *argv[])
+{
+	int fd = -1;
+	sscanf(argv[1],"%d",&fd);
+	printf("main::fd = %d\n",fd);
+	char buff[100] = {0};
+	read(fd,buff,11);
+	printf("main buff:%s\n",buff);
+
+}
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<fcntl.h>
+#include<assert.h>
+#include <unistd.h>
+int main()
+{
+	int fd = open("a.txt",O_RDONLY);
+	assert(fd != -1);
+	char arr[20] = {0};
+	sprintf(arr,"%d",fd);
+	execl("./main","main", arr, (char*)0);
+}
